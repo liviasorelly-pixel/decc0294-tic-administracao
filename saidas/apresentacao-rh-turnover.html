@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditoria Fiscal - Turnover RH (RASCUNHO)</title>
+<style>
+*{box-sizing:border-box} body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff7ed;color:#222}
+.top{background:#14532d;color:#fff;padding:28px 32px}
+.top h1{margin:0;font-size:24px} .top p{margin:6px 0 0;color:#dcfce7;font-size:14px}
+.badge{display:inline-block;background:#ffedd5;color:#9a3412;border:1px solid #fb923c;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:12px}
+.wrap{padding:24px 32px;max-width:1100px;margin:auto}
+.verde{color:#15803d} .laranja{color:#ea580c}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}
+.card{background:#fff;border:2px solid #e5e7eb;border-radius:14px;padding:16px}
+.card.v{border-color:#16a34a} .card.l{border-color:#f97316}
+.card b{font-size:28px;display:block} .card span{font-size:12px;color:#6b7280}
+h2{font-size:18px;margin:30px 0 10px;border-left:8px solid #16a34a;padding-left:10px}
+h2.laranja-b{border-color:#f97316}
+p,li{font-size:14px;line-height:1.55}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;margin-top:10px}
+th,td{border:1px solid #e5e7eb;padding:8px;text-align:left} th{background:#14532d;color:#fff}
+.bar{height:14px;background:#dcfce7;border-radius:8px;overflow:hidden;display:flex}
+.fv{background:#16a34a} .fl{background:#f97316}
+.leg{display:flex;gap:16px;font-size:13px;margin:8px 0}
+.dot{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:6px}
+.pizza{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
+.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(#16a34a 0 77.5%, #f97316 77.5% 100%);position:relative;flex-shrink:0}
+.donut::after{content:'77,5% ativo';position:absolute;inset:28px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;color:#14532d}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:700px){.grid2{grid-template-columns:1fr} .wrap{padding:16px}}
+.vs{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px}
+.vs.verde-b{border-top:8px solid #16a34a} .vs.laranja-b{border-top:8px solid #f97316}
+.footer{background:#fff7ed;border:2px dashed #f97316;border-radius:12px;padding:14px;margin:24px 0;font-size:13px}
+.small{font-size:12px;color:#6b7280}
+</style>
+</head>
+<body>
+<div class="top">
+<div class="badge">RASCUNHO - nao e texto final pra entregar</div>
+<h1>Auditoria Fiscal & Tributaria - Analise de Turnover</h1>
+<p>Apresentacao para o RH | Empresa ficticia de servicos de auditoria fiscal | 80 pessoas simuladas</p>
+</div>
+<div class="wrap">
+
+<h2>Conceitinho rapidinho</h2>
+<p><b>Definicao:</b> turnover e o giro de saidas de funcionarios num periodo.<br>
+<b>Exemplo brasileiro:</b> consultoria em Sao Luis que audita NF-e e SPED e vive perdendo analista tributario para concorrente.<br>
+<b>Referencia verificavel:</b> NAO SEI, nao vou inventar autor.</p>
+<p class="small">Fonte de TODOS os numeros: ficticios, inventados por mim em 13/10/2026 so pra simulacao de empresa de auditoria fiscal. Nao sao do IBGE, nem da Supercell, nem reais. Total fake: 80 (62 Ativo, 18 Desligado).</p>
+
+<h2>Visao geral - os verdinhos vs laranjinhas</h2>
+<div class="leg"><span><span class="dot" style="background:#16a34a"></span><b class="verde">Verde = Ativo</b></span><span><span class="dot" style="background:#f97316"></span><b class="laranja">Laranja = Desligado</b></span></div>
+<div class="cards">
+<div class="card v"><span>Total simulado</span><b>80</b><span>fake inventado por mim</span></div>
+<div class="card v"><span>Ativos</span><b class="verde">62</b><span>77,5% - 62/80 calc.meu fake</span></div>
+<div class="card l"><span>Desligados</span><b class="laranja">18</b><span>22,5% - 18/80 calc.meu fake</span></div>
+<div class="card l"><span>Taxa simples</span><b class="laranja">22,5%</b><span>Deslig/Total x100 fake</span></div>
+</div>
+
+<div class="pizza">
+<div class="donut"></div>
+<div><b>Grafico 1 - Composicao (verde e laranja)</b><br><span class="small">Verde 77,5% ativo (62/80) | Laranja 22,5% desligado (18/80). Calculo meu do fake.</span><br><br><b>Grafico 2 - eNPS fake:</b> <span class="small">Promotor 45, Neutro 17, Detrator 18 no total fake. Nos 18 desligados fake: 13 Detrator, 5 Neutro, 0 Promotor. Fonte: invenção minha.</span></div>
+</div>
+
+<h2 class="laranja-b">Onde aperta? Por area fiscal</h2>
+<table>
+<tr><th>Area</th><th>Total fake</th><th>Ativo</th><th>Desligado</th><th>% deslig.</th><th>Grafico verde x laranja</th></tr>
+<tr><td>Auditoria Fiscal e Tributaria</td><td>20</td><td>15</td><td>5</td><td>25% (5/20)</td><td><div class="bar"><div class="fv" style="width:75%"></div><div class="fl" style="width:25%"></div></div></td></tr>
+<tr><td>Contabil / Fiscal Operacional (SPED, NF-e)</td><td>18</td><td>13</td><td>5</td><td>27,8% (5/18)</td><td><div class="bar"><div class="fv" style="width:72%"></div><div class="fl" style="width:28%"></div></div></td></tr>
+<tr><td>Compliance e Risco</td><td>12</td><td>9</td><td>3</td><td>25% (3/12)</td><td><div class="bar"><div class="fv" style="width:75%"></div><div class="fl" style="width:25%"></div></div></td></tr>
+<tr><td>TI Fiscal / Sistemas</td><td>10</td><td>8</td><td>2</td><td>20% (2/10)</td><td><div class="bar"><div class="fv" style="width:80%"></div><div class="fl" style="width:20%"></div></div></td></tr>
+<tr><td>Atendimento e Relacionamento Cliente</td><td>12</td><td>9</td><td>3</td><td>25% (3/12)</td><td><div class="bar"><div class="fv" style="width:75%"></div><div class="fl" style="width:25%"></div></div></td></tr>
+<tr><td>Administrativo Financeiro & RH</td><td>8</td><td>8</td><td>0</td><td>0% (0/8)</td><td><div class="bar"><div class="fv" style="width:100%"></div></div></td></tr>
+</table>
+<p class="small">Todos % calculados por mim agora a partir do fake de 80. Verde = ficou, laranja = saiu.</p>
+
+<h2>Ativo vs Desligado na auditoria</h2>
+<div class="grid2">
+<div class="vs verde-b"><h3 class="verde">Ativo (62 fake)</h3><p>Faltas media <b>1,6</b><br>Satisfacao media <b>8,3 /10</b><br>Treinamento medio <b>42h</b><br>Horas extras pico SPED <b>6h/mes</b></p><p class="small">Medias inventadas por mim pro fake fiscal</p></div>
+<div class="vs laranja-b"><h3 class="laranja">Desligado (18 fake)</h3><p>Faltas media <b>7,9</b><br>Satisfacao media <b>4,2 /10</b><br>Treinamento medio <b>16h</b><br>Tempo medio de casa <b>11 meses</b></p><p class="small">Mesma fonte fake. Motivo fake mais citado: proposta salarial + sobrecarga no fechamento.</p></div>
+</div>
+
+<h2>Interpretacao (rascunho)</h2>
+<ul>
+<li>Contabil/Fiscal Operacional com 27,8% fake e o maior giro: sugere sobrecarga de SPED/NF-e e falta de treinamento (16h vs 42h fake).</li>
+<li>Quem saiu tem falta alta + sat baixa + zero promotor fake: sinal de desengajamento antes da saida, mas nao prova causa.</li>
+<li>TI Fiscal segura mais (20% fake): conhecimento de sistema prende um pouco.</li>
+<li>Administrativo zerado nao e sucesso: sao so 8 fakes.</li>
+</ul>
+
+<h2>Limitacao declarada</h2>
+<ul>
+<li>Tudo fake de 80 linhas, sem data real de desligamento, sem separar pedido de conta vs demissao. Nao da pra calcular turnover mensal verdadeiro.</li>
+<li>Empresa de auditoria fiscal tem sazonalidade (fechamento, malha fina) que o fake nao captura direito.</li>
+<li>Nao usar como dado real nem citar como pesquisa. Nao inventei referencia externa.</li>
+</ul>
+
+<div class="footer"><b>O que voce (humana) precisa decidir:</b> 1) Mantem 80 fakes ou quer 100+? 2) Quais areas reais da tua empresa entram? 3) Separa voluntario/involuntario? 4) Quer que eu gere o CSV fake novo dessa auditoria + PDF? Arquivos base: dados/simulacao_turnover_rh.csv (30 game) | saidas/simulacao_turnover_rh.csv (copia)</div>
+
+</div>
+</body>
+</html>

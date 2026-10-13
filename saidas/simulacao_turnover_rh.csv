@@ -1,0 +1,31 @@
+ID;Nome;Departamento;Cargo;Cell;Salario;Admissao;Status;Faltas;Trein;Perf;Promo;Sat;eNPS
+SIM-001;Maria Silva;Engenharia;Backend Engineer;Clash Royale;9200;10/01/22;Ativo;1;40;5;Não;9;Promotor
+SIM-002;João Santos;Engenharia;Game Developer Pleno;Hay Day;8800;15/03/22;Desligado;8;12;2;Não;4;Detrator
+SIM-003;Ana Oliveira;Game Design;Level Designer;Brawl Stars;7000;20/05/21;Ativo;2;35;4;Sim;8;Neutro
+SIM-004;Carlos Souza;Game Design;Senior Game Designer;Hay Day;9300;11/07/20;Desligado;9;10;2;Não;3;Detrator
+SIM-005;Beatriz Lima;Produto;Producer;Boom Beach;6800;05/02/23;Ativo;0;50;5;Não;10;Promotor
+SIM-006;Lucas Ferreira;Produto;Lead Producer;Hay Day;9400;12/09/21;Ativo;3;44;4;Sim;7;Neutro
+SIM-007;Fernanda Costa;Marketing & Community;Brand Manager;Clash Royale;7100;08/04/22;Desligado;10;8;1;Não;2;Detrator
+SIM-008;Rafael Almeida;Marketing & Community;UA Specialist;New Games;5400;19/06/23;Ativo;1;30;4;Não;8;Promotor
+SIM-009;Camila Rocha;QA & Suporte;Player Support;Clash of Clans;4300;22/10/22;Ativo;2;28;4;Não;9;Promotor
+SIM-010;Thiago Pereira;QA & Suporte;QA Lead;Brawl Stars;5600;30/11/21;Desligado;7;15;2;Não;5;Detrator
+SIM-011;Juliana Mendes;Data & Analytics;Data Analyst;Boom Beach;6700;14/01/22;Ativo;1;38;5;Sim;9;Promotor
+SIM-012;Marcos Vinicius;Data & Analytics;Data Analyst;Squad Busters;6600;09/08/23;Desligado;6;20;3;Não;6;Neutro
+SIM-013;Patricia Gomes;Arte & Animação;2D Artist;Hay Day;6900;17/03/21;Ativo;0;42;5;Não;10;Promotor
+SIM-014;Felipe Barbosa;Arte & Animação;Senior VFX Artist;Hay Day;7900;25/05/20;Desligado;11;10;1;Não;3;Detrator
+SIM-015;Larissa Dias;People, RH & Admin;Recruiter;Clash Royale;4500;02/02/23;Ativo;0;48;5;Não;9;Promotor
+SIM-016;Bruno Cardoso;Engenharia;Backend Engineer;Brawl Stars;9100;13/07/21;Ativo;4;33;4;Não;7;Neutro
+SIM-017;Gabriela Nunes;Engenharia;Game Developer Pleno;Hay Day;8700;21/09/22;Desligado;9;14;2;Não;4;Detrator
+SIM-018;Diego Ramos;Game Design;Level Designer;Squad Busters;7050;06/11/21;Ativo;2;36;4;Não;8;Promotor
+SIM-019;Renata Teixeira;Produto;Producer;Boom Beach;6750;18/12/22;Desligado;5;22;3;Não;5;Neutro
+SIM-020;Igor Freitas;Marketing & Community;Brand Manager;Squad Busters;6100;27/04/20;Ativo;1;29;4;Não;8;Promotor
+SIM-021;Aline Correia;QA & Suporte;Player Support;Clash Royale;4250;03/06/23;Ativo;0;41;5;Não;10;Promotor
+SIM-022;Paulo Henrique;Data & Analytics;Data Analyst;Boom Beach;6800;11/10/21;Ativo;3;31;4;Sim;7;Neutro
+SIM-023;Vanessa Pinto;Arte & Animação;2D Artist;Squad Busters;6300;29/01/23;Desligado;8;18;2;Não;4;Detrator
+SIM-024;Eduardo Moreira;People, RH & Admin;Finance Analyst;Squad Busters;5500;07/05/22;Ativo;1;39;4;Não;8;Promotor
+SIM-025;Priscila Castro;Engenharia;Backend Engineer;Clash Royale;9250;16/08/20;Ativo;2;45;5;Sim;9;Promotor
+SIM-026;Rodrigo Cunha;Game Design;Senior Game Designer;Hay Day;9350;23/02/21;Ativo;1;43;5;Não;9;Promotor
+SIM-027;Tatiane Vieira;Produto;Lead Producer;Hay Day;9350;09/09/20;Desligado;10;9;1;Não;2;Detrator
+SIM-028;Anderson Reis;Marketing & Community;UA Specialist;New Games;5450;01/12/22;Ativo;2;27;3;Não;7;Neutro
+SIM-029;Daniela Fonseca;QA & Suporte;Player Support;Clash of Clans;4350;19/07/23;Ativo;1;33;4;Não;8;Promotor
+SIM-030;Gustavo Tavares;Data & Analytics;Data Analyst;Boom Beach;6720;28/03/22;Desligado;7;16;2;Não;5;Detrator
