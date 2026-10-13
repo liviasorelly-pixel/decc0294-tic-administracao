@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RH Auditoria Fiscal - Interativo (RASCUNHO)</title>
+<style>
+*{box-sizing:border-box} body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff7ed;color:#222}
+.top{background:#14532d;color:#fff;padding:24px 28px}
+.badge{display:inline-block;background:#ffedd5;color:#9a3412;border:1px solid #fb923c;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:10px}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
+.card{background:#fff;border-radius:12px;padding:14px;border:2px solid #e5e7eb} .card.v{border-color:#16a34a} .card.l{border-color:#f97316}
+.card b{font-size:26px;display:block} .small{font-size:12px;color:#666}
+.controls{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.controls input,.controls select,.controls button{padding:8px 10px;border-radius:8px;border:1px solid #ccc;font-size:13px}
+.controls button{background:#14532d;color:#fff;cursor:pointer;border:none} .controls button.sec{background:#f97316}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:12px} th,td{border:1px solid #e5e7eb;padding:7px;text-align:left} th{background:#14532d;color:#fff;cursor:pointer}
+.bar{height:12px;background:#dcfce7;border-radius:6px;display:flex;overflow:hidden} .fv{background:#16a34a} .fl{background:#f97316}
+.dot{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px}
+canvas{background:#fff;border:1px solid #e5e7eb;border-radius:12px;width:100%;height:220px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px} @media(max-width:750px){.grid2{grid-template-columns:1fr}}
+.footer{background:#fff;border:2px dashed #f97316;border-radius:12px;padding:12px;margin:18px 0;font-size:13px}
+</style>
+</head>
+<body>
+<div class="top">
+<div class="badge">RASCUNHO - nao e texto final</div>
+<h1>Auditoria Fiscal - Turnover Interativo</h1>
+<p>Empresa ficticia de auditoria fiscal | 80 fakes | Verde = Ativo, Laranja = Desligado</p>
+</div>
+<div class="wrap">
+<p class="small"><b>Conceitinho:</b> turnover = giro de saidas. Ex BR: consultoria de SPED em Sao Luis que perde analista. Ref: NAO SEI. Fonte numeros: fakes inventados por mim em 13/10/2026, 80 linhas (62 Ativo, 18 Desligado taxa 22,5% calc.meu). Nao sao reais.</p>
+
+<div class="cards">
+<div class="card"><span>Total fake</span><b>80</b></div>
+<div class="card v"><span>Ativo</span><b style="color:#16a34a">62 (77,5%)</b></div>
+<div class="card l"><span>Desligado</span><b style="color:#f97316">18 (22,5%)</b></div>
+<div class="card"><span>Faltas med Ativo x Deslig</span><b>1,6 x 7,9</b></div>
+<div class="card"><span>Sat med Ativo x Deslig</span><b>8,3 x 4,2</b></div>
+</div>
+
+<div class="controls">
+<input id="q" placeholder="Buscar nome, cargo, area..." style="flex:1;min-width:200px">
+<select id="fDept"><option value="">Todas areas</option></select>
+<select id="fStatus"><option value="">Ativo + Desligado</option><option>Ativo</option><option>Desligado</option></select>
+<button onclick="filtrar()">Filtrar</button>
+<button class="sec" onclick="limpar()">Limpar</button>
+<span class="small" id="cont"></span>
+</div>
+
+<div class="grid2">
+<div><b>Grafico por area (verde x laranja) - clica na barra pra filtrar</b><canvas id="c1" width="500" height="220"></canvas></div>
+<div><b>Faltas x Satisfacao (bolinhas: verde fica, laranja sai)</b><canvas id="c2" width="500" height="220"></canvas></div>
+</div>
+
+<h3>Tabela (clica no titulo pra ordenar)</h3>
+<table id="t"><thead><tr><th data-k="id">ID</th><th data-k="nome">Nome</th><th data-k="dept">Area</th><th data-k="cargo">Cargo</th><th data-k="status">Status</th><th data-k="faltas">Faltas</th><th data-k="sat">Sat</th></tr></thead><tbody id="tb"></tbody></table>
+
+<div class="footer"><b>Interpretacao rascunho:</b> Contabil/Fiscal Operacional com 27,8% fake e o pico. Desligado = falta alta + sat baixo. <b>Limitacao:</b> tudo fake, sem motivo real, sem data, amostra pequena. <b>Voce decide:</b> periodo real? separa voluntario? gera CSV novo?</div>
+</div>
+<script>
+const D=[
+["AF-01","Ana Beatriz","Auditoria Fiscal e Tributaria","Auditor Fiscal Pleno","Ativo",1,9],["AF-02","Bruno Melo","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Desligado",8,4],
+["AF-03","Carla Dias","Auditoria Fiscal e Tributaria","Revisor Tributario","Ativo",0,9],["AF-04","Diego Souza","Auditoria Fiscal e Tributaria","Auditor Fiscal Senior","Ativo",2,8],
+["AF-05","Elisa Rocha","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Desligado",9,3],["AF-06","Fabio Lima","Auditoria Fiscal e Tributaria","Consultor Tributario","Ativo",1,8],
+["AF-07","Gabi Nunes","Auditoria Fiscal e Tributaria","Auditor Fiscal Pleno","Ativo",2,9],["AF-08","Hugo Prado","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Desligado",7,4],
+["AF-09","Igor Alves","Auditoria Fiscal e Tributaria","Revisor Tributario","Ativo",1,8],["AF-10","Julia Castro","Auditoria Fiscal e Tributaria","Auditor Fiscal Pleno","Ativo",3,7],
+["AF-11","Kaique Reis","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Desligado",8,5],["AF-12","Luana Pinto","Auditoria Fiscal e Tributaria","Consultor Tributario","Ativo",0,10],
+["AF-13","Marcos Paulo","Auditoria Fiscal e Tributaria","Auditor Fiscal Senior","Ativo",2,8],["AF-14","Nadia Freitas","Auditoria Fiscal e Tributaria","Auditor Fiscal Pleno","Ativo",1,9],
+["AF-15","Otavio Gomes","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Desligado",10,3],["AF-16","Paula Mendes","Auditoria Fiscal e Tributaria","Revisor Tributario","Ativo",1,8],
+["AF-17","Rafa Santos","Auditoria Fiscal e Tributaria","Auditor Fiscal Pleno","Ativo",2,7],["AF-18","Sara Lins","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Ativo",0,9],
+["AF-19","Tiago Barros","Auditoria Fiscal e Tributaria","Consultor Tributario","Ativo",3,7],["AF-20","Vivi Costa","Auditoria Fiscal e Tributaria","Auditor Fiscal Jr","Ativo",1,8],
+["CT-01","Aline Farias","Contabil / Fiscal Operacional","Analista Fiscal SPED","Ativo",1,9],["CT-02","Beto Ramos","Contabil / Fiscal Operacional","Auxiliar Fiscal NF-e","Desligado",9,4],
+["CT-03","Cris Mota","Contabil / Fiscal Operacional","Analista Fiscal SPED","Ativo",2,8],["CT-04","Duda Leal","Contabil / Fiscal Operacional","Auxiliar Fiscal NF-e","Desligado",8,3],
+["CT-05","Elias Prado","Contabil / Fiscal Operacional","Analista Contabil","Ativo",0,9],["CT-06","Flavia Goulart","Contabil / Fiscal Operacional","Analista Fiscal SPED","Desligado",10,4],
+["CT-07","Gui Henriques","Contabil / Fiscal Operacional","Auxiliar Fiscal NF-e","Ativo",3,7],["CT-08","Heloisa Bittencourt","Contabil / Fiscal Operacional","Analista Contabil","Ativo",1,8],
+["CT-09","Ivan Cardoso","Contabil / Fiscal Operacional","Analista Fiscal SPED","Desligado",7,5],["CT-10","Joice Tavares","Contabil / Fiscal Operacional","Auxiliar Fiscal NF-e","Ativo",2,8],
+["CT-11","Kleber Nogueira","Contabil / Fiscal Operacional","Analista Contabil","Ativo",1,9],["CT-12","Larissa Moura","Contabil / Fiscal Operacional","Analista Fiscal SPED","Desligado",9,3],
+["CT-13","Murilo Azevedo","Contabil / Fiscal Operacional","Auxiliar Fiscal NF-e","Ativo",0,9],["CT-14","Natalia Pires","Contabil / Fiscal Operacional","Analista Contabil","Ativo",2,7],
+["CT-15","Olivia Sales","Contabil / Fiscal Operacional","Analista Fiscal SPED","Ativo",1,8],["CT-16","Pablo Vieira","Contabil / Fiscal Operacional","Auxiliar Fiscal NF-e","Ativo",2,8],
+["CT-17","Queila Duarte","Contabil / Fiscal Operacional","Analista Contabil","Ativo",1,9],["CT-18","Renan Furtado","Contabil / Fiscal Operacional","Analista Fiscal SPED","Ativo",3,7],
+["CP-01","Alice Cunha","Compliance e Risco","Analista Compliance","Ativo",1,9],["CP-02","Bernardo Lacerda","Compliance e Risco","Auditor Interno","Desligado",7,4],
+["CP-03","Camila Siqueira","Compliance e Risco","Analista Risco","Ativo",0,9],["CP-04","Danilo Peixoto","Compliance e Risco","Analista Compliance","Ativo",2,8],
+["CP-05","Ester Barbosa","Compliance e Risco","Auditor Interno","Desligado",8,5],["CP-06","Fabricio Correia","Compliance e Risco","Analista Risco","Ativo",1,8],
+["CP-07","Giovana Lopes","Compliance e Risco","Analista Compliance","Ativo",2,7],["CP-08","Heitor Fonseca","Compliance e Risco","Auditor Interno","Ativo",1,9],
+["CP-09","Isabela Rocha","Compliance e Risco","Analista Risco","Desligado",9,3],["CP-10","Jonas Teixeira","Compliance e Risco","Analista Compliance","Ativo",0,10],
+["CP-11","Karina Silveira","Compliance e Risco","Auditor Interno","Ativo",1,8],["CP-12","Leandro Martins","Compliance e Risco","Analista Risco","Ativo",2,7],
+["TI-01","Alan Torres","TI Fiscal / Sistemas","Dev SPED","Ativo",1,9],["TI-02","Bruna Campos","TI Fiscal / Sistemas","Suporte NF-e","Desligado",6,5],
+["TI-03","Caio Neves","TI Fiscal / Sistemas","Dev SPED","Ativo",0,9],["TI-04","Debora Rios","TI Fiscal / Sistemas","Analista Sistemas Fiscais","Ativo",2,8],
+["TI-05","Erick Santana","TI Fiscal / Sistemas","Suporte NF-e","Ativo",1,8],["TI-06","Fernanda Brito","TI Fiscal / Sistemas","Dev SPED","Desligado",8,4],
+["TI-07","Gustavo Leao","TI Fiscal / Sistemas","Analista Sistemas Fiscais","Ativo",2,7],["TI-08","Helena Martins","TI Fiscal / Sistemas","Suporte NF-e","Ativo",1,9],
+["TI-09","Iuri Carvalho","TI Fiscal / Sistemas","Dev SPED","Ativo",0,10],["TI-10","Jeferson Pereira","TI Fiscal / Sistemas","Analista Sistemas Fiscais","Ativo",3,8],
+["AT-01","Adriana Lima","Atendimento e Relacionamento","CS Fiscal","Ativo",1,9],["AT-02","Breno Vasconcelos","Atendimento e Relacionamento","Atendente Fiscal","Desligado",7,4],
+["AT-03","Celia Regina","Atendimento e Relacionamento","CS Fiscal","Ativo",2,8],["AT-04","Douglas Ferreira","Atendimento e Relacionamento","Atendente Fiscal","Ativo",0,9],
+["AT-05","Elaine Cristina","Atendimento e Relacionamento","CS Fiscal","Desligado",8,3],["AT-06","Fabiana Ribeiro","Atendimento e Relacionamento","Atendente Fiscal","Ativo",1,8],
+["AT-07","Gerson Oliveira","Atendimento e Relacionamento","CS Fiscal","Ativo",2,7],["AT-08","Hortencia Silva","Atendimento e Relacionamento","Atendente Fiscal","Ativo",1,9],
+["AT-09","Ivaldo Santos","Atendimento e Relacionamento","CS Fiscal","Desligado",9,5],["AT-10","Janaina Moreira","Atendimento e Relacionamento","Atendente Fiscal","Ativo",0,10],
+["AT-11","Katia Barbosa","Atendimento e Relacionamento","CS Fiscal","Ativo",1,8],["AT-12","Luciano Araujo","Atendimento e Relacionamento","Atendente Fiscal","Ativo",2,7],
+["AD-01","Mario Sergio","Administrativo Financeiro & RH","Assistente Adm","Ativo",0,9],["AD-02","Nilza Pereira","Administrativo Financeiro & RH","Analista Financeiro","Ativo",1,8],
+["AD-03","Osmar Couto","Administrativo Financeiro & RH","Recrutador","Ativo",0,9],["AD-04","Patricia Lemos","Administrativo Financeiro & RH","Assistente Adm","Ativo",1,8],
+["AD-05","Quiteria Nunes","Administrativo Financeiro & RH","Analista Financeiro","Ativo",2,7],["AD-06","Raimundo Nonato","Administrativo Financeiro & RH","Auxiliar RH","Ativo",0,10],
+["AD-07","Solange Vieira","Administrativo Financeiro & RH","Auxiliar RH","Ativo",1,9],["AD-08","Tereza Cristina","Administrativo Financeiro & RH","Gerente Adm","Ativo",1,8]
+];
+let ordem={k:'id',d:1};
+const depts=[...new Set(D.map(x=>x[2]))];
+const sel=document.getElementById('fDept'); depts.forEach(d=>{const o=document.createElement('option');o.textContent=d;sel.appendChild(o)});
+function lista(){let q=document.getElementById('q').value.toLowerCase(),fd=sel.value,fs=document.getElementById('fStatus').value;
+let L=D.filter(x=>(!q||(x[1]+x[3]+x[2]).toLowerCase().includes(q))&&(!fd||x[2]===fd)&&(!fs||x[4]===fs));
+L.sort((a,b)=>{const i={id:0,nome:1,dept:2,cargo:3,status:4,faltas:5,sat:6}[ordem.k];let va=a[i],vb=b[i];return (va>vb?1:va<vb?-1:0)*ordem.d});
+const tb=document.getElementById('tb');tb.innerHTML='';L.forEach(x=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td style="font-weight:bold;color:${x[4]==='Ativo'?'#16a34a':'#f97316'}">${x[4]}</td><td>${x[5]}</td><td>${x[6]}</td>`;tb.appendChild(tr)});
+document.getElementById('cont').textContent=L.length+' de 80 fakes (fonte: array fake no proprio HTML)';draw1(fd);draw2(L);return L}
+function filtrar(){lista()} function limpar(){document.getElementById('q').value='';sel.value='';document.getElementById('fStatus').value='';lista()}
+document.querySelectorAll('#t th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ordem.d=ordem.k===k?-ordem.d:1;ordem.k=k;lista()});
+function draw1(selDept){const c=document.getElementById('c1'),x=c.getContext('2d');x.clearRect(0,0,500,220);
+const agg={};D.forEach(r=>{agg[r[2]]=agg[r[2]]||{a:0,d:0};r[4]==='Ativo'?agg[r[2]].a++:agg[r[2]].d++});
+const keys=Object.keys(agg);const bw=500/keys.length;x.font='10px Arial';
+keys.forEach((k,i)=>{const t=agg[k].a+agg[k].d,ha=agg[k].a/t*150,hd=agg[k].d/t*150;let y=190-ha-hd;
+x.fillStyle='#16a34a';x.fillRect(i*bw+12,y,bw-24,ha);x.fillStyle='#f97316';x.fillRect(i*bw+12,y+ha,bw-24,hd);
+x.fillStyle='#222';x.fillText(k.split(' ')[0],i*bw+12,205);x.fillText(agg[k].d+'/'+t,i*bw+12,y-4);
+if(selDept===k){x.strokeStyle='#14532d';x.lineWidth=3;x.strokeRect(i*bw+10,y-2,bw-20,ha+hd+4)}});
+c.onclick=e=>{const r=c.getBoundingClientRect(),ix=Math.floor((e.clientX-r.left)/(r.width/keys.length));sel.value=keys[ix];lista()}}
+function draw2(L){const c=document.getElementById('c2'),x=c.getContext('2d');x.clearRect(0,0,500,220);
+x.strokeStyle='#ccc';x.strokeRect(30,10,460,170);x.fillStyle='#666';x.font='10px Arial';x.fillText('Sat ->',440,195);x.fillText('Faltas',5,20);
+L.slice(0,80).forEach(r=>{const px=30+r[6]/10*440,py=180-r[5]/11*170;x.beginPath();x.arc(px,py,6,0,7);x.fillStyle=r[4]==='Ativo'?'#16a34a':'#f97316';x.fill()})}
+lista();
+</script>
+</body>
+</html>
